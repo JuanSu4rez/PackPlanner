@@ -5,6 +5,9 @@ using TestPackPlanner.Model;
 namespace PackPlanner
 {
     public class PackPlannerMain {
+                      
+        public static string INPUT_FOLDER = "InputFiles";
+        public static string FILE_NAME = "Input.txt";
 
         static void Main() {
 
@@ -12,7 +15,7 @@ namespace PackPlanner
             InputReader inputReader = new InputReader();
             InputValidator validator = new InputValidator();
             try {                
-                config = inputReader.ReadInputFile();
+                config = inputReader.ReadInputFile(INPUT_FOLDER, FILE_NAME);
             }
             catch (Exception e) {
                 Console.WriteLine($"There was an error while reading the input file. \n{e.Message}");

@@ -4,11 +4,9 @@ using TestPackPlanner.Model;
 namespace TestPackPlanner.InputData {
     public class InputReader
     {
-        public static string FILE_NAME = "Input.txt";
-        public static string INPUT_FOLDER = "InputFiles";
-        public ConfigurationPack ReadInputFile() {
+        public ConfigurationPack ReadInputFile(string folderName, string fileName)  {
 
-            string filePath = Path.Combine(INPUT_FOLDER, FILE_NAME);
+            string filePath = Path.Combine(folderName, fileName);
             ConfigurationPack? packConfiguration = null;
 
             if (File.Exists(filePath)) {

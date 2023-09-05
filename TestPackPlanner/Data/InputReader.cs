@@ -13,25 +13,32 @@ namespace TestPackPlanner.InputData {
                 using (StreamReader streamReader = new StreamReader(filePath)) {
                     string line = "";
                     bool headerInIputCase = true;
+                    bool fileIsEmpty = true;
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         if (string.IsNullOrWhiteSpace(line))
                             break;
                         var lineData = line.Split(",");
                         if (headerInIputCase) {
-                            if (TryGetConfigurationPack(lineData, out packConfiguration))
+                            if (TryGetConfigurationPack(lineData, out packConfiguration)) {
                                 headerInIputCase = !headerInIputCase;
+                                fileIsEmpty = false;
+                            }                            
                             else
                                 throw new Exception($"Wrong data in input file (Pack): [{line}]");
                         }
                         else {
                             ItemSet? items;
-                            if (TryGetItem(lineData, out items))
+                            if (TryGetItem(lineData, out items)) {
                                 packConfiguration.Items.Add(items);
+                                fileIsEmpty = false;
+                            }   
                             else
                                 throw new Exception($"Wrong data in iput file (Item): [{line}]");
                         }
                     }
+                    if(fileIsEmpty)
+                        throw new Exception($"The file is empty!");
                     return packConfiguration;
                 }
             }
